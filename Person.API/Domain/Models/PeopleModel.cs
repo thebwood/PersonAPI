@@ -10,6 +10,7 @@ namespace Person.API.Domain.Models
         public long Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public DateTime? DateOfBirth { get; set; }
         public string BirthCity { get; set; }
         public int BirthStateId { get; set; }
         public string City { get; set; }

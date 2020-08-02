@@ -60,6 +60,8 @@ namespace Person.API.Data
                     .HasMaxLength(100)
                     .IsUnicode(false);
 
+                entity.Property(e => e.DateOfBirth).HasColumnType("datetime");
+
                 entity.Property(e => e.FirstName)
                     .IsRequired()
                     .HasMaxLength(100)

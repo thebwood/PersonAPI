@@ -36,16 +36,16 @@ namespace Person.API.Domain.Services
                      (string.IsNullOrWhiteSpace(searchRequest.LastName) || p.LastName.Contains(searchRequest.LastName)) &&
                      (searchRequest.BirthStateId == null || p.BirthStateId == searchRequest.BirthStateId) &&
                      (searchRequest.StateId == null || p.StateId == searchRequest.StateId)
-                     //searchRequest.MovieGenreIds.Contains(m.MovieGenresId.Value) &&
-                     //(m.MovieGenresId.HasValue && searchRequest.MovieGenreIds.Contains(m.MovieGenresId.Value)) &&
-                     //(searchRequest.MovieRatingIds.Contains(m.MovieRatingsId))
                      )
                      select new PersonSearchResultsModel
                      {
                          Id = p.Id,
                          FirstName = p.FirstName,
                          LastName = p.LastName,
+                         DateOfBirth = p.DateOfBirth,
+                         City = p.City,
                          State = s.Name,
+                         BirthCity = p.BirthCity,
                          BirthState = bs.Name,
                      })
                     .OrderByDescending(a => a.Id)

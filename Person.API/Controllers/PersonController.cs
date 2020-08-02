@@ -33,7 +33,7 @@ namespace Person.API.Controllers
         [ProducesResponseType(typeof(List<PersonSearchResultsModel>), (int)HttpStatusCode.NoContent)]
         [ProducesResponseType(typeof(List<PersonSearchResultsModel>), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(List<PersonSearchResultsModel>), (int)HttpStatusCode.InternalServerError)]
-        public IActionResult SearchMovies([FromBody] PersonSearchModel searchRequest)
+        public IActionResult SearchPeople([FromBody] PersonSearchModel searchRequest)
         {
             try
             {
@@ -78,7 +78,7 @@ namespace Person.API.Controllers
         [ProducesResponseType(typeof(StatesModel), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(StatesModel), (int)HttpStatusCode.NotFound)]
         [ProducesResponseType(typeof(StatesModel), (int)HttpStatusCode.InternalServerError)]
-        public IActionResult GetMovieRatings()
+        public IActionResult GetStates()
         {
             try
             {
