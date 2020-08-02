@@ -7,11 +7,13 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Person.API.Data;
+using Person.API.Domain.Services;
 
 namespace Person.API
 {
@@ -43,8 +45,8 @@ namespace Person.API
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
-            services.AddScoped<IMovieRepository, MovieRepository>();
-            services.AddScoped<IMovieService, MovieService>();
+            services.AddScoped<IPersonRepository, PersonRepository>();
+            services.AddScoped<IPersonService, PersonService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
