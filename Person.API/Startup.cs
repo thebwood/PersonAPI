@@ -68,7 +68,9 @@ namespace Person.API
             app.UseHttpsRedirection();
 
             app.UseRouting();
+            app.UseCors("SiteCorsPolicy");
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

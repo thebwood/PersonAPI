@@ -34,7 +34,10 @@ namespace Person.API.Domain.Services
                      from bs in pbs.DefaultIfEmpty()
                      where ((string.IsNullOrWhiteSpace(searchRequest.FirstName) || p.FirstName.Contains(searchRequest.FirstName)) &&
                      (string.IsNullOrWhiteSpace(searchRequest.LastName) || p.LastName.Contains(searchRequest.LastName)) &&
+                     (string.IsNullOrWhiteSpace(searchRequest.City) || p.City.Contains(searchRequest.City)) &&
+                     (!searchRequest.DateOfBirth.HasValue || p.DateOfBirth.Value.Date == searchRequest.DateOfBirth.Value.Date) &&
                      (searchRequest.BirthStateId == null || p.BirthStateId == searchRequest.BirthStateId) &&
+                     (string.IsNullOrWhiteSpace(searchRequest.BirthCity) || p.BirthCity.Contains(searchRequest.BirthCity)) &&
                      (searchRequest.StateId == null || p.StateId == searchRequest.StateId)
                      )
                      select new PersonSearchResultsModel
