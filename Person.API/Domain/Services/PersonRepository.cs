@@ -13,7 +13,18 @@ namespace Person.API.Domain.Services
 
         public PersonRepository(PeopleContext context) => _context = context;
 
-        public List<PersonSearchResultsModel> SearchPeople(PersonSearchModel searchRequest)
+        public List<States> GetStates() => _context.States.ToList();
+        public People GetPerson(long personId) => _context.People.Where(x => x.Id == personId).SingleOrDefault();
+        public void SaveDetail(People person)
+        {
+            if (person.Id > 0)
+                _context.People.Update(person);
+            else
+                _context.People.Add(person);
+            _context.SaveChanges();
+        }
+
+    public List<PersonSearchResultsModel> SearchPeople(PersonSearchModel searchRequest)
         {
             var results =
                     (from p in _context.People

@@ -28,31 +28,6 @@ namespace Person.API.Controllers
         }
 
 
-        [HttpGet]
-        [ProducesResponseType(typeof(List<PeopleModel>), (int)HttpStatusCode.OK)]
-        [ProducesResponseType(typeof(List<PeopleModel>), (int)HttpStatusCode.NotFound)]
-        [ProducesResponseType(typeof(List<PeopleModel>), (int)HttpStatusCode.InternalServerError)]
-        public IActionResult GetPeople()
-        {
-            try
-            {
-                var data = _service.GetMovies();
-
-                var retVal = _mapper.Map<IEnumerable<PeopleModel>>(data);
-
-                if (retVal != null)
-                {
-                    return Ok(retVal);
-                }
-                else
-                    return NotFound();
-            }
-            catch (Exception ex)
-            {
-                return StatusCode((int)HttpStatusCode.InternalServerError, "A problem happened while handling your request.");
-            }
-        }
-
         [HttpPost("search")]
         [ProducesResponseType(typeof(List<PersonSearchResultsModel>), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(List<PersonSearchResultsModel>), (int)HttpStatusCode.NoContent)]
@@ -73,17 +48,17 @@ namespace Person.API.Controllers
 
         }
 
-        [HttpGet("{movieId}")]
-        [ProducesResponseType(typeof(MoviesModel), (int)HttpStatusCode.OK)]
-        [ProducesResponseType(typeof(MoviesModel), (int)HttpStatusCode.NoContent)]
-        [ProducesResponseType(typeof(MoviesModel), (int)HttpStatusCode.InternalServerError)]
-        public IActionResult GetMovie(int movieId)
+        [HttpGet("{personId}")]
+        [ProducesResponseType(typeof(PeopleModel), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(PeopleModel), (int)HttpStatusCode.NoContent)]
+        [ProducesResponseType(typeof(PeopleModel), (int)HttpStatusCode.InternalServerError)]
+        public IActionResult GetPerson(long personId)
         {
             try
             {
-                var data = _service.GetMovie(movieId);
+                var data = _service.GetPerson(personId);
 
-                var retVal = _mapper.Map<MoviesModel>(data);
+                var retVal = _mapper.Map<PeopleModel>(data);
 
                 if (retVal != null)
                 {
@@ -99,42 +74,17 @@ namespace Person.API.Controllers
         }
 
 
-        [HttpGet("ratings")]
-        [ProducesResponseType(typeof(MovieRatingsModel), (int)HttpStatusCode.OK)]
-        [ProducesResponseType(typeof(MovieRatingsModel), (int)HttpStatusCode.NotFound)]
-        [ProducesResponseType(typeof(MovieRatingsModel), (int)HttpStatusCode.InternalServerError)]
+        [HttpGet("states")]
+        [ProducesResponseType(typeof(StatesModel), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(StatesModel), (int)HttpStatusCode.NotFound)]
+        [ProducesResponseType(typeof(StatesModel), (int)HttpStatusCode.InternalServerError)]
         public IActionResult GetMovieRatings()
         {
             try
             {
-                var data = _service.GetMovieRatings();
+                var data = _service.GetStates();
 
-                var retVal = _mapper.Map<IEnumerable<MovieRatingsModel>>(data);
-
-                if (retVal.Count() > 0)
-                {
-                    return Ok(retVal);
-                }
-                else
-                    return NotFound();
-            }
-            catch (Exception ex)
-            {
-                return StatusCode((int)HttpStatusCode.InternalServerError, "A problem happened while handling your request.");
-            }
-        }
-
-        [HttpGet("genres")]
-        [ProducesResponseType(typeof(MovieGenresModel), (int)HttpStatusCode.OK)]
-        [ProducesResponseType(typeof(MovieGenresModel), (int)HttpStatusCode.NotFound)]
-        [ProducesResponseType(typeof(MovieGenresModel), (int)HttpStatusCode.InternalServerError)]
-        public IActionResult GetMovieGenres()
-        {
-            try
-            {
-                var data = _service.GetMovieGenres();
-
-                var retVal = _mapper.Map<IEnumerable<MovieGenresModel>>(data);
+                var retVal = _mapper.Map<IEnumerable<StatesModel>>(data);
 
                 if (retVal.Count() > 0)
                 {
@@ -148,18 +98,19 @@ namespace Person.API.Controllers
                 return StatusCode((int)HttpStatusCode.InternalServerError, "A problem happened while handling your request.");
             }
         }
+
 
         [HttpPost]
         [ProducesResponseType(typeof(List<string>), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(List<string>), (int)HttpStatusCode.BadRequest)]
-        public IActionResult UpdateMovie([FromBody] MoviesModel movie)
+        public IActionResult UpdatePerson([FromBody] PeopleModel person)
         {
             var errorList = new List<string>();
 
             try
             {
 
-                errorList = _service.SaveDetail(movie);
+                errorList = _service.SaveDetail(person);
                 if (errorList.Count > 0)
                 {
                     return BadRequest(errorList);

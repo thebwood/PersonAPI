@@ -14,6 +14,7 @@ namespace Person.API.Domain.Profiles
         {
             CreateMap<PeopleModel, People>();
             CreateMap<People, PeopleModel>();
+            CreateMap<States, StatesModel>();
         }
     }
 }
